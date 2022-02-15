@@ -1,5 +1,5 @@
 syntax = "proto3";
-package  test1;
+package  pcdemo;
 option go_package = "pb/";
 
 import "laptop_message.proto";

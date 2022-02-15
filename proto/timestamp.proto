@@ -29,7 +29,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 syntax = "proto3";
-package  test1;
+package  pcdemo;
 option go_package = "pb/";
 
 // A Timestamp represents a point in time independent of any time zone or local
