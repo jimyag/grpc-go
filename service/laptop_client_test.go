@@ -21,8 +21,8 @@ import (
 func TestClientCreateLaptop(t *testing.T) {
 	// 测试并行执行
 	t.Parallel()
-
-	laptopServer, serverAddress := startTestLaptopServer(t, service.NewInMemoryLaptopStore())
+	laptopStore := service.NewInMemoryLaptopStore()
+	serverAddress := startTestLaptopServer(t, laptopStore, nil)
 	laptopClient := newClientLaptopClient(t, serverAddress)
 
 	laptop := sample.NewLaptop()
@@ -36,7 +36,7 @@ func TestClientCreateLaptop(t *testing.T) {
 	require.NotNil(t, res)               // 结果不为空
 	require.Equal(t, expectedID, res.Id) // 相等
 
-	other, err := laptopServer.Store.Find(res.Id)
+	other, err := laptopStore.Find(res.Id)
 	require.NoError(t, err)
 	require.NotNil(t, other)
 
@@ -115,7 +115,7 @@ func TestLaptopServer_SearchLaptop(t *testing.T) {
 		require.NoError(t, err)
 	}
 
-	_, serverAddress := startTestLaptopServer(t, store)
+	serverAddress := startTestLaptopServer(t, store, nil)
 	laptopClient := newClientLaptopClient(t, serverAddress)
 
 	req := &pb.SearchLaptopRequest{Filter: filter}
@@ -144,8 +144,8 @@ func TestLaptopServer_SearchLaptop(t *testing.T) {
 //  @return *service.LaptopServer
 //  @return string
 //
-func startTestLaptopServer(t *testing.T, store service.LaptopStore) (*service.LaptopServer, string) {
-	laptopServer := service.NewLaptopServer(store)
+func startTestLaptopServer(t *testing.T, laptopStore service.LaptopStore, imageStore service.ImageStore) string {
+	laptopServer := service.NewLaptopServer(laptopStore, imageStore)
 	grpcServer := grpc.NewServer()
 	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
 	// 0表示 任意一个可用的端口
@@ -155,7 +155,7 @@ func startTestLaptopServer(t *testing.T, store service.LaptopStore) (*service.La
 	// 由于前面 listen 一定是可用的，所以这里的错误可以不用处理。
 	// 这里的 server() 是阻塞的
 	go grpcServer.Serve(listen)
-	return laptopServer, listen.Addr().String()
+	return listen.Addr().String()
 }
 
 //
