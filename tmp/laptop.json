@@ -1,0 +1,62 @@
+{
+  "id": "cef0de4c-76c2-4ff5-8d4c-eb8b6324273c",
+  "brand": "Dell",
+  "name": "XPS",
+  "cpu": {
+    "brand": "Intel",
+    "name": "Core i7-8750H",
+    "number_cores": 8,
+    "number_threads": 8,
+    "min_ghz": 1.712249,
+    "max_ghz": 1.7616082
+  },
+  "memory": {
+    "value": "60",
+    "unit": "GB"
+  },
+  "gpu": [
+    {
+      "brand": "AMD",
+      "name": "RX 5700-XT",
+      "min_ghz": 1.4433804,
+      "max_ghz": 2.107843,
+      "memory": {
+        "value": "2",
+        "unit": "GB"
+      }
+    }
+  ],
+  "storage": [
+    {
+      "driver": "SSD",
+      "memory": {
+        "value": "817",
+        "unit": "GB"
+      }
+    },
+    {
+      "driver": "SSD",
+      "memory": {
+        "value": "1024",
+        "unit": "GB"
+      }
+    }
+  ],
+  "screen": {
+    "size_inch": 14.342117,
+    "resolution": {
+      "width": 6702,
+      "height": 3770
+    },
+    "panel": "OLED",
+    "multi_touch": false
+  },
+  "keyboard": {
+    "layout": "QWERTY",
+    "backlit": true
+  },
+  "weight_kg": 2.1221628878367635,
+  "price_usd": 1110.400630121535,
+  "release_year": 2022,
+  "updated_at": null
+}

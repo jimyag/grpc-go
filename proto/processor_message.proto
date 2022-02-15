@@ -1,0 +1,29 @@
+syntax = "proto3";
+package  test1;
+import "memory_message.proto";
+option go_package = "pb/";
+// 消息为大驼峰
+message CPU{
+  //  字段为下划线
+  //  类型 字段名 = 标签
+  //  标签只能是整数 1 - 2^29-1 但是19000-19999除外 这些保留给内部协议缓冲区实现
+  //  标签1-15由一个字节 16-2047两个字节。。。
+  //  标签不必有序 或者 顺序
+  //  对于消息的相同级别的字段，标签必须唯一
+  string brand = 1;
+  string name = 2;
+  uint32 number_cores = 3;
+  uint32 number_threads = 4;
+  float min_ghz = 5;
+  float max_ghz = 6;
+}
+// protoc --proto_path=proto proto/*.proto --go_out=plugins=grpc:.
+// 执行
+
+message GPU{
+  string brand = 1;
+  string name = 2;
+  float min_ghz = 3;
+  float max_ghz = 4;
+  Memory memory = 5;
+}
