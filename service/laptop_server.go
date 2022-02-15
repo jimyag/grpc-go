@@ -8,7 +8,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"log"
-	"time"
 )
 
 //
@@ -38,7 +37,7 @@ func NewLaptopServer(store LaptopStore) *LaptopServer {
 //  @return *pb.CreateLaptopResponse
 //  @return error
 //
-func (service *LaptopServer) CreateLaptop(ctx context.Context, in *pb.CreateLaptopRequest) (*pb.CreateLaptopResponse, error) {
+func (server *LaptopServer) CreateLaptop(ctx context.Context, in *pb.CreateLaptopRequest) (*pb.CreateLaptopResponse, error) {
 	// 从req中获得laptop信息
 	laptop := in.GetLaptop()
 	log.Printf("receive a create-laptop request with id: %s", laptop.Id)
@@ -58,7 +57,8 @@ func (service *LaptopServer) CreateLaptop(ctx context.Context, in *pb.CreateLapt
 		laptop.Id = id.String()
 	}
 
-	time.Sleep(6 * time.Second)
+	// 测试超时
+	//time.Sleep(6 * time.Second)
 
 	// 客户端是否取消连接
 	if errors.Is(ctx.Err(), context.Canceled) {
@@ -73,7 +73,7 @@ func (service *LaptopServer) CreateLaptop(ctx context.Context, in *pb.CreateLapt
 	}
 
 	// 保存 laptop 到 store
-	err := service.Store.Save(laptop)
+	err := server.Store.Save(laptop)
 	if err != nil {
 		code := codes.Internal
 		if errors.Is(err, ErrAlreadyExists) {
@@ -87,4 +87,36 @@ func (service *LaptopServer) CreateLaptop(ctx context.Context, in *pb.CreateLapt
 	res := &pb.CreateLaptopResponse{
 		Id: laptop.Id}
 	return res, nil
+}
+
+//
+// SearchLaptop
+//  @Description:
+//  @receiver server
+//  @param *pb.SearchLaptopRequest
+//  @param pb.LaptopService_SearchLaptopServer
+//  @return error
+//
+func (server *LaptopServer) SearchLaptop(req *pb.SearchLaptopRequest, stream pb.LaptopService_SearchLaptopServer) error {
+	filter := req.GetFilter()
+	log.Printf("recevier a search-laptop request with filter: %v", filter)
+
+	err := server.Store.Search(stream.Context(), filter, func(laptop *pb.Laptop) error {
+		res := &pb.SearchLaptopResponse{
+			Laptop: laptop,
+		}
+
+		err := stream.Send(res)
+		if err != nil {
+			return err
+		}
+
+		log.Printf("sent laptop with id :%s", laptop.GetId())
+
+		return nil
+	})
+	if err != nil {
+		return status.Errorf(codes.Internal, "Unexpected error :%v", err)
+	}
+	return nil
 }
