@@ -18,6 +18,12 @@ import (
 	"time"
 )
 
+//
+// createLaptop
+//  @Description:
+//  @param laptopClient
+//  @param laptop
+//
 func createLaptop(laptopClient pb.LaptopServiceClient, laptop *pb.Laptop) {
 	req := &pb.CreateLaptopRequest{
 		Laptop: laptop,
@@ -39,6 +45,12 @@ func createLaptop(laptopClient pb.LaptopServiceClient, laptop *pb.Laptop) {
 	log.Printf("created laptop with id:%s", res.Id)
 }
 
+//
+// searchLaptop
+//  @Description:
+//  @param laptopClient
+//  @param filter
+//
 func searchLaptop(laptopClient pb.LaptopServiceClient, filter *pb.Filter) {
 	log.Print("search filter: ", filter)
 
@@ -72,6 +84,14 @@ func searchLaptop(laptopClient pb.LaptopServiceClient, filter *pb.Filter) {
 	}
 }
 
+//
+// rateLaptop
+//  @Description:
+//  @param laptopClient
+//  @param laptopIDs
+//  @param scores
+//  @return error
+//
 func rateLaptop(laptopClient pb.LaptopServiceClient, laptopIDs []string, scores []float64) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -123,6 +143,11 @@ func rateLaptop(laptopClient pb.LaptopServiceClient, laptopIDs []string, scores 
 	return err
 }
 
+//
+// testCreateLaptop
+//  @Description:
+//  @param laptopClient
+//
 func testCreateLaptop(laptopClient pb.LaptopServiceClient) {
 	createLaptop(laptopClient, sample.NewLaptop())
 }
@@ -151,6 +176,13 @@ func testUploadImage(laptopClient pb.LaptopServiceClient) {
 	uploadImage(laptopClient, laptop.GetId(), "tmp/laptop.jpg")
 }
 
+//
+// uploadImage
+//  @Description:
+//  @param laptopClient
+//  @param laptopId
+//  @param imagePath
+//
 func uploadImage(laptopClient pb.LaptopServiceClient, laptopId string, imagePath string) {
 	file, err := os.Open(imagePath)
 	if err != nil {
@@ -212,6 +244,11 @@ func uploadImage(laptopClient pb.LaptopServiceClient, laptopId string, imagePath
 	log.Printf("image upload with id :%s ,size: %d", res.GetId(), res.GetSize())
 }
 
+//
+// testRateLaptop
+//  @Description:
+//  @param laptopClient
+//
 func testRateLaptop(laptopClient pb.LaptopServiceClient) {
 	n := 3
 	laptopIDs := make([]string, n)

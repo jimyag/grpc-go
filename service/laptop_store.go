@@ -202,6 +202,13 @@ func toBit(memory *pb.Memory) uint64 {
 	}
 }
 
+//
+// deepCopy
+//  @Description:
+//  @param laptop
+//  @return *pb.Laptop
+//  @return error
+//
 func deepCopy(laptop *pb.Laptop) (*pb.Laptop, error) {
 	other := &pb.Laptop{}
 	err := copier.Copy(other, laptop)

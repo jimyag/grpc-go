@@ -119,6 +119,13 @@ func (server *LaptopServer) SearchLaptop(req *pb.SearchLaptopRequest, stream pb.
 	return nil
 }
 
+//
+// UploadImage
+//  @Description:
+//  @receiver server
+//  @param stream
+//  @return error
+//
 func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServer) error {
 	req, err := stream.Recv()
 	if err != nil {
@@ -248,6 +255,12 @@ func (server *LaptopServer) RateLaptop(stream pb.LaptopService_RateLaptopServer)
 	return nil
 }
 
+//
+// contextErr
+//  @Description:
+//  @param ctx
+//  @return error
+//
 func contextErr(ctx context.Context) error {
 
 	switch ctx.Err() {
@@ -261,6 +274,12 @@ func contextErr(ctx context.Context) error {
 
 }
 
+//
+// logErr
+//  @Description:
+//  @param err
+//  @return error
+//
 func logErr(err error) error {
 	if err != nil {
 		log.Print(err)
