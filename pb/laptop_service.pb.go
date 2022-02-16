@@ -402,6 +402,124 @@ func (x *UploadImageResponse) GetSize() uint32 {
 	return 0
 }
 
+type RateLaptopRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Score float64 `protobuf:"fixed64,2,opt,name=score,proto3" json:"score,omitempty"`
+}
+
+func (x *RateLaptopRequest) Reset() {
+	*x = RateLaptopRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_laptop_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RateLaptopRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RateLaptopRequest) ProtoMessage() {}
+
+func (x *RateLaptopRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_laptop_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RateLaptopRequest.ProtoReflect.Descriptor instead.
+func (*RateLaptopRequest) Descriptor() ([]byte, []int) {
+	return file_laptop_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RateLaptopRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *RateLaptopRequest) GetScore() float64 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
+type RateLaptopResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LaptopId     string  `protobuf:"bytes,1,opt,name=laptop_id,json=laptopId,proto3" json:"laptop_id,omitempty"`
+	RatedCount   uint32  `protobuf:"varint,2,opt,name=rated_count,json=ratedCount,proto3" json:"rated_count,omitempty"`
+	AverageScore float64 `protobuf:"fixed64,3,opt,name=average_score,json=averageScore,proto3" json:"average_score,omitempty"`
+}
+
+func (x *RateLaptopResponse) Reset() {
+	*x = RateLaptopResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_laptop_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RateLaptopResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RateLaptopResponse) ProtoMessage() {}
+
+func (x *RateLaptopResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_laptop_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RateLaptopResponse.ProtoReflect.Descriptor instead.
+func (*RateLaptopResponse) Descriptor() ([]byte, []int) {
+	return file_laptop_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RateLaptopResponse) GetLaptopId() string {
+	if x != nil {
+		return x.LaptopId
+	}
+	return ""
+}
+
+func (x *RateLaptopResponse) GetRatedCount() uint32 {
+	if x != nil {
+		return x.RatedCount
+	}
+	return 0
+}
+
+func (x *RateLaptopResponse) GetAverageScore() float64 {
+	if x != nil {
+		return x.AverageScore
+	}
+	return 0
+}
+
 var File_laptop_service_proto protoreflect.FileDescriptor
 
 var file_laptop_service_proto_rawDesc = []byte{
@@ -438,24 +556,40 @@ var file_laptop_service_proto_rawDesc = []byte{
 	0x65, 0x22, 0x39, 0x0a, 0x13, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61, 0x67, 0x65,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x32, 0xf7, 0x01, 0x0a,
-	0x0d, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4b,
-	0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x12, 0x1b,
-	0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c, 0x61,
-	0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x70, 0x63,
-	0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f,
-	0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4d, 0x0a, 0x0c, 0x53,
-	0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x12, 0x1b, 0x2e, 0x70, 0x63,
-	0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x61, 0x70, 0x74, 0x6f,
-	0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d,
-	0x6f, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x12, 0x4a, 0x0a, 0x0b, 0x55, 0x70,
-	0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x2e, 0x70, 0x63, 0x64, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x22, 0x39, 0x0a, 0x11,
+	0x52, 0x61, 0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01,
+	0x52, 0x05, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x22, 0x77, 0x0a, 0x12, 0x52, 0x61, 0x74, 0x65, 0x4c,
+	0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1b, 0x0a,
+	0x09, 0x6c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x6c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x72, 0x61,
+	0x74, 0x65, 0x64, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x0a, 0x72, 0x61, 0x74, 0x65, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x23, 0x0a, 0x0d, 0x61,
+	0x76, 0x65, 0x72, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x01, 0x52, 0x0c, 0x61, 0x76, 0x65, 0x72, 0x61, 0x67, 0x65, 0x53, 0x63, 0x6f, 0x72, 0x65,
+	0x32, 0xc2, 0x02, 0x0a, 0x0d, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x4b, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c, 0x61, 0x70, 0x74,
+	0x6f, 0x70, 0x12, 0x1b, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1c, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4c,
+	0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x4d, 0x0a, 0x0c, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x12,
+	0x1b, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c,
+	0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x70,
+	0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4c, 0x61, 0x70, 0x74,
+	0x6f, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x12, 0x4a,
+	0x0a, 0x0b, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x2e,
+	0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61,
+	0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x63, 0x64, 0x65,
 	0x6d, 0x6f, 0x2e, 0x55, 0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x55,
-	0x70, 0x6c, 0x6f, 0x61, 0x64, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x28, 0x01, 0x42, 0x05, 0x5a, 0x03, 0x70, 0x62, 0x2f, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x28, 0x01, 0x12, 0x49, 0x0a, 0x0a, 0x52, 0x61,
+	0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x12, 0x19, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d,
+	0x6f, 0x2e, 0x52, 0x61, 0x74, 0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x70, 0x63, 0x64, 0x65, 0x6d, 0x6f, 0x2e, 0x52, 0x61, 0x74,
+	0x65, 0x4c, 0x61, 0x70, 0x74, 0x6f, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x28, 0x01, 0x30, 0x01, 0x42, 0x05, 0x5a, 0x03, 0x70, 0x62, 0x2f, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -470,7 +604,7 @@ func file_laptop_service_proto_rawDescGZIP() []byte {
 	return file_laptop_service_proto_rawDescData
 }
 
-var file_laptop_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_laptop_service_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_laptop_service_proto_goTypes = []interface{}{
 	(*CreateLaptopRequest)(nil),  // 0: pcdemo.CreateLaptopRequest
 	(*CreateLaptopResponse)(nil), // 1: pcdemo.CreateLaptopResponse
@@ -479,25 +613,29 @@ var file_laptop_service_proto_goTypes = []interface{}{
 	(*UploadImageRequest)(nil),   // 4: pcdemo.UploadImageRequest
 	(*ImageInfo)(nil),            // 5: pcdemo.ImageInfo
 	(*UploadImageResponse)(nil),  // 6: pcdemo.UploadImageResponse
-	(*Laptop)(nil),               // 7: pcdemo.Laptop
-	(*Filter)(nil),               // 8: pcdemo.Filter
+	(*RateLaptopRequest)(nil),    // 7: pcdemo.RateLaptopRequest
+	(*RateLaptopResponse)(nil),   // 8: pcdemo.RateLaptopResponse
+	(*Laptop)(nil),               // 9: pcdemo.Laptop
+	(*Filter)(nil),               // 10: pcdemo.Filter
 }
 var file_laptop_service_proto_depIdxs = []int32{
-	7, // 0: pcdemo.CreateLaptopRequest.laptop:type_name -> pcdemo.Laptop
-	8, // 1: pcdemo.SearchLaptopRequest.filter:type_name -> pcdemo.Filter
-	7, // 2: pcdemo.SearchLaptopResponse.laptop:type_name -> pcdemo.Laptop
-	5, // 3: pcdemo.UploadImageRequest.info:type_name -> pcdemo.ImageInfo
-	0, // 4: pcdemo.LaptopService.CreateLaptop:input_type -> pcdemo.CreateLaptopRequest
-	2, // 5: pcdemo.LaptopService.SearchLaptop:input_type -> pcdemo.SearchLaptopRequest
-	4, // 6: pcdemo.LaptopService.UploadImage:input_type -> pcdemo.UploadImageRequest
-	1, // 7: pcdemo.LaptopService.CreateLaptop:output_type -> pcdemo.CreateLaptopResponse
-	3, // 8: pcdemo.LaptopService.SearchLaptop:output_type -> pcdemo.SearchLaptopResponse
-	6, // 9: pcdemo.LaptopService.UploadImage:output_type -> pcdemo.UploadImageResponse
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	9,  // 0: pcdemo.CreateLaptopRequest.laptop:type_name -> pcdemo.Laptop
+	10, // 1: pcdemo.SearchLaptopRequest.filter:type_name -> pcdemo.Filter
+	9,  // 2: pcdemo.SearchLaptopResponse.laptop:type_name -> pcdemo.Laptop
+	5,  // 3: pcdemo.UploadImageRequest.info:type_name -> pcdemo.ImageInfo
+	0,  // 4: pcdemo.LaptopService.CreateLaptop:input_type -> pcdemo.CreateLaptopRequest
+	2,  // 5: pcdemo.LaptopService.SearchLaptop:input_type -> pcdemo.SearchLaptopRequest
+	4,  // 6: pcdemo.LaptopService.UploadImage:input_type -> pcdemo.UploadImageRequest
+	7,  // 7: pcdemo.LaptopService.RateLaptop:input_type -> pcdemo.RateLaptopRequest
+	1,  // 8: pcdemo.LaptopService.CreateLaptop:output_type -> pcdemo.CreateLaptopResponse
+	3,  // 9: pcdemo.LaptopService.SearchLaptop:output_type -> pcdemo.SearchLaptopResponse
+	6,  // 10: pcdemo.LaptopService.UploadImage:output_type -> pcdemo.UploadImageResponse
+	8,  // 11: pcdemo.LaptopService.RateLaptop:output_type -> pcdemo.RateLaptopResponse
+	8,  // [8:12] is the sub-list for method output_type
+	4,  // [4:8] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_laptop_service_proto_init() }
@@ -592,6 +730,30 @@ func file_laptop_service_proto_init() {
 				return nil
 			}
 		}
+		file_laptop_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RateLaptopRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_laptop_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RateLaptopResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_laptop_service_proto_msgTypes[4].OneofWrappers = []interface{}{
 		(*UploadImageRequest_Info)(nil),
@@ -603,7 +765,7 @@ func file_laptop_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_laptop_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -632,6 +794,7 @@ type LaptopServiceClient interface {
 	CreateLaptop(ctx context.Context, in *CreateLaptopRequest, opts ...grpc.CallOption) (*CreateLaptopResponse, error)
 	SearchLaptop(ctx context.Context, in *SearchLaptopRequest, opts ...grpc.CallOption) (LaptopService_SearchLaptopClient, error)
 	UploadImage(ctx context.Context, opts ...grpc.CallOption) (LaptopService_UploadImageClient, error)
+	RateLaptop(ctx context.Context, opts ...grpc.CallOption) (LaptopService_RateLaptopClient, error)
 }
 
 type laptopServiceClient struct {
@@ -717,11 +880,43 @@ func (x *laptopServiceUploadImageClient) CloseAndRecv() (*UploadImageResponse, e
 	return m, nil
 }
 
+func (c *laptopServiceClient) RateLaptop(ctx context.Context, opts ...grpc.CallOption) (LaptopService_RateLaptopClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_LaptopService_serviceDesc.Streams[2], "/pcdemo.LaptopService/RateLaptop", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &laptopServiceRateLaptopClient{stream}
+	return x, nil
+}
+
+type LaptopService_RateLaptopClient interface {
+	Send(*RateLaptopRequest) error
+	Recv() (*RateLaptopResponse, error)
+	grpc.ClientStream
+}
+
+type laptopServiceRateLaptopClient struct {
+	grpc.ClientStream
+}
+
+func (x *laptopServiceRateLaptopClient) Send(m *RateLaptopRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *laptopServiceRateLaptopClient) Recv() (*RateLaptopResponse, error) {
+	m := new(RateLaptopResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // LaptopServiceServer is the server API for LaptopService service.
 type LaptopServiceServer interface {
 	CreateLaptop(context.Context, *CreateLaptopRequest) (*CreateLaptopResponse, error)
 	SearchLaptop(*SearchLaptopRequest, LaptopService_SearchLaptopServer) error
 	UploadImage(LaptopService_UploadImageServer) error
+	RateLaptop(LaptopService_RateLaptopServer) error
 }
 
 // UnimplementedLaptopServiceServer can be embedded to have forward compatible implementations.
@@ -736,6 +931,9 @@ func (*UnimplementedLaptopServiceServer) SearchLaptop(*SearchLaptopRequest, Lapt
 }
 func (*UnimplementedLaptopServiceServer) UploadImage(LaptopService_UploadImageServer) error {
 	return status.Errorf(codes.Unimplemented, "method UploadImage not implemented")
+}
+func (*UnimplementedLaptopServiceServer) RateLaptop(LaptopService_RateLaptopServer) error {
+	return status.Errorf(codes.Unimplemented, "method RateLaptop not implemented")
 }
 
 func RegisterLaptopServiceServer(s *grpc.Server, srv LaptopServiceServer) {
@@ -807,6 +1005,32 @@ func (x *laptopServiceUploadImageServer) Recv() (*UploadImageRequest, error) {
 	return m, nil
 }
 
+func _LaptopService_RateLaptop_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(LaptopServiceServer).RateLaptop(&laptopServiceRateLaptopServer{stream})
+}
+
+type LaptopService_RateLaptopServer interface {
+	Send(*RateLaptopResponse) error
+	Recv() (*RateLaptopRequest, error)
+	grpc.ServerStream
+}
+
+type laptopServiceRateLaptopServer struct {
+	grpc.ServerStream
+}
+
+func (x *laptopServiceRateLaptopServer) Send(m *RateLaptopResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *laptopServiceRateLaptopServer) Recv() (*RateLaptopRequest, error) {
+	m := new(RateLaptopRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 var _LaptopService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "pcdemo.LaptopService",
 	HandlerType: (*LaptopServiceServer)(nil),
@@ -825,6 +1049,12 @@ var _LaptopService_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "UploadImage",
 			Handler:       _LaptopService_UploadImage_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "RateLaptop",
+			Handler:       _LaptopService_RateLaptop_Handler,
+			ServerStreams: true,
 			ClientStreams: true,
 		},
 	},

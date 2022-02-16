@@ -21,6 +21,7 @@ const maxImageSize = 1 << 30
 type LaptopServer struct {
 	LaptopStore LaptopStore
 	imageStore  ImageStore
+	ratingStore RatingStore
 }
 
 //
@@ -29,8 +30,8 @@ type LaptopServer struct {
 //  @param store laptop的存储地方
 //  @return *LaptopServer
 //
-func NewLaptopServer(laptopStore LaptopStore, imageStore ImageStore) *LaptopServer {
-	return &LaptopServer{LaptopStore: laptopStore, imageStore: imageStore}
+func NewLaptopServer(laptopStore LaptopStore, imageStore ImageStore, ratingStore RatingStore) *LaptopServer {
+	return &LaptopServer{LaptopStore: laptopStore, imageStore: imageStore, ratingStore: ratingStore}
 }
 
 //
@@ -188,6 +189,62 @@ func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServe
 	}
 
 	log.Printf("saved image with id: %s , size: %d", imageID, imageSize)
+	return nil
+}
+
+//
+// RateLaptop
+//  @Description:
+//  @receiver server
+//  @param server2
+//  @return error
+//
+func (server *LaptopServer) RateLaptop(stream pb.LaptopService_RateLaptopServer) error {
+	for {
+		err := contextErr(stream.Context())
+		if err != nil {
+			return err
+		}
+
+		req, err := stream.Recv()
+		if err == io.EOF {
+			log.Print("no more data")
+			break
+		}
+
+		if err != nil {
+			return logErr(status.Errorf(codes.Unknown, "cannot receive stream request :%v", err))
+		}
+
+		laptopID := req.GetId()
+		score := req.GetScore()
+		log.Printf("received a rate-laptop request :id = %s ,score: = %.2f", laptopID, score)
+
+		found, err := server.LaptopStore.Find(laptopID)
+		if err != nil {
+			return logErr(status.Errorf(codes.Internal, "cannot find laptop :%v", err))
+		}
+		if found == nil {
+			return logErr(status.Errorf(codes.NotFound, "laptopID %s is not found", laptopID))
+		}
+
+		rating, err := server.ratingStore.Add(laptopID, score)
+		if err != nil {
+			return logErr(status.Errorf(codes.Internal, "cannot add rating to the store :%v", err))
+		}
+
+		res := &pb.RateLaptopResponse{
+			LaptopId:     laptopID,
+			RatedCount:   rating.Count,
+			AverageScore: rating.Sum / float64(rating.Count),
+		}
+
+		err = stream.Send(res)
+		if err != nil {
+			return logErr(status.Errorf(codes.Internal, "cannot send stream response :%v", err))
+		}
+
+	}
 	return nil
 }
 
