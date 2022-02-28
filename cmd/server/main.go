@@ -46,7 +46,13 @@ func main() {
 	flag.Parse()
 	log.Printf("start server on port :%d", *port)
 
+	// 1.拿出server
 	userStore := service.NewInmemoryUserStore()
+
+	// 2. 挂载方法， 实现pb/laptop_service.pb.go:916 的接口，如下例子
+	// CreateLaptop(context.Context, *CreateLaptopRequest) (*CreateLaptopResponse, error)
+	// 具体的实现在 service/laptop_server.go：46
+
 	//测试新建用户
 	err := seedUsers(userStore)
 	if err != nil {
@@ -66,15 +72,18 @@ func main() {
 		grpc.StreamInterceptor(interceptor.Stream()),
 	)
 
+	// 3.注册服务
 	pb.RegisterAuthServiceServer(grpcServer, authServer)
 	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
 	reflection.Register(grpcServer)
+
 	address := fmt.Sprintf("0.0.0.0:%d", *port)
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal("cannot start server ", err)
 	}
 
+	// 4.创建监听
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Fatal("cannot start server ", err)
