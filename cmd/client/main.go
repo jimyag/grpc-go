@@ -101,12 +101,19 @@ func main() {
 	flag.Parse()
 	log.Printf("dial address :%s", *serverAddress)
 
+	// 1.创建一个连接
 	cc1, err := grpc.Dial(*serverAddress, grpc.WithInsecure())
 	if err != nil {
 		log.Fatal("cannot dial server :", err)
 	}
 
+	// 2. 创建一个client proto生成的go文件中有一个创建 client的方法
+	// NewAuthServiceClient(cc grpc.ClientConnInterface) AuthServiceClient 具体在，
+	// pb/auth_service.pb.go:246 我们在client/auth_client.go:28又封装了一层
+
 	authClient := client.NewAuthClient(cc1, username, password)
+
+	// 这里是设置拦截器
 	interceptor, err := client.NewAuthInterceptor(authClient, authMethods(), refreshDuration)
 	if err != nil {
 		log.Fatal("cannot create auth interceptor : ", err)
@@ -122,6 +129,8 @@ func main() {
 		log.Fatal("cannot dial server :", err)
 	}
 	laptopClient := client.NewLaptopClient(cc2)
+
+	// 3. 调用方法
 	//testUploadImage(laptopClient)
 	testRateLaptop(laptopClient)
 }
